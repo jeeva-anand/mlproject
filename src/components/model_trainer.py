@@ -57,8 +57,6 @@ class ModelTraining:
             best_model_name = list(models)[list(
                 model_report.values()).index(best_model_score)]
 
-            
-
             save_object(
                 self.model_training_config.model_training_path,
                 models[best_model_name]
