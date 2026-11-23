@@ -1,6 +1,6 @@
 import sys
 
-import logging
+from src.logger import logging
 
 def handle_exception(error, error_description: sys):
     """
@@ -13,9 +13,9 @@ def handle_exception(error, error_description: sys):
     _,_,exc_tb = sys.exc_info()
     filename= exc_tb.tb_frame.f_code.co_filename
     lineno = exc_tb.tb_lineno    
-    error_mesage = f"Error occurred in file: {filename}, line: {lineno}, error:{error}, description: {error_description}"
+    error_message = f"Error occurred in file: {filename}, line: {lineno}, error:{error}, description: {error_description}"
     
-    return error_mesage
+    return error_message
 
 class CustomException(Exception):
     """
@@ -34,9 +34,9 @@ class CustomException(Exception):
     
     
 
-if __name__ == "__main__":
-    try:
-       a = 1 / 0  
-    except Exception as e:        
-        logging.info("CustomException occurred: %s", e)
-        raise CustomException(e,sys)
+# if __name__ == "__main__":
+#     try:
+#        a = 1 / 0  
+#     except Exception as e:        
+#         logging.info("CustomException occurred: %s", e)
+#         raise CustomException(e,sys)
