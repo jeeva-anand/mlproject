@@ -14,6 +14,6 @@ logging.basicConfig(
     format="[%(asctime)s] %(lineno)d %(name)s %(levelname)s - %(message)s",
 )  
 
-# if __name__ == "__main__":
-#     logging.info("Logging setup complete. Log file created at: %s", log_file_path)
+if __name__ == "__main__":
+    logging.info("Logging setup complete. Log file created at: %s", log_file_path)
     
