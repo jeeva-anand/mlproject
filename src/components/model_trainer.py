@@ -51,7 +51,64 @@ class ModelTraining:
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
             }
-            model_report = evaluate_model(xtrain, ytrain, xtest, ytest, models)
+            params = {
+                "Random Forest": {
+                    "n_estimators": [100, 200, 300],
+                    "max_depth": [None, 5, 10, 20],
+                    "min_samples_split": [2, 5, 10],
+                    "min_samples_leaf": [1, 2, 4],
+                    "max_features": [1.0, "sqrt", "log2"],
+                },
+
+                "Decision Tree": {
+                    "max_depth": [None, 5, 10, 20],
+                    "min_samples_split": [2, 5, 10],
+                    "min_samples_leaf": [1, 2, 4],
+                    "criterion": ["squared_error", "friedman_mse", "absolute_error"],
+                },
+
+                "Gradient Boosting": {
+                    "n_estimators": [100, 200, 300],
+                    "learning_rate": [0.01, 0.05, 0.1, 0.2],
+                    "max_depth": [2, 3, 4, 5],
+                    "min_samples_split": [2, 5, 10],
+                    "min_samples_leaf": [1, 2, 4],
+                    "subsample": [0.8, 0.9, 1.0],
+                },
+
+                "Linear Regression": {
+                    "fit_intercept": [True, False],
+                    "positive": [True, False],
+                },
+
+                "XGBRegressor": {
+                    "n_estimators": [100, 200, 300],
+                    "max_depth": [3, 4, 5, 7],
+                    "learning_rate": [0.01, 0.05, 0.1, 0.2],
+                    "subsample": [0.7, 0.8, 0.9, 1.0],
+                    "colsample_bytree": [0.7, 0.8, 0.9, 1.0],
+                    "min_child_weight": [1, 3, 5],
+                    "gamma": [0, 0.1, 0.2],
+                    "reg_alpha": [0, 0.01, 0.1],
+                    "reg_lambda": [1, 5, 10],
+                },
+
+                "CatBoosting Regressor": {
+                    "iterations": [100, 200, 300],
+                    "depth": [4, 6, 8],
+                    "learning_rate": [0.01, 0.05, 0.1],
+                    "l2_leaf_reg": [1, 3, 5, 7],
+                },
+
+                "AdaBoost Regressor": {
+                    "n_estimators": [50, 100, 200],
+                    "learning_rate": [0.01, 0.05, 0.1, 1.0],
+                    "loss": ["linear", "square", "exponential"],
+                },
+            }
+            
+            
+            model_report = evaluate_model(xtrain, ytrain, xtest, ytest, models,params)
 
             best_model_score = max(model_report.values())
             best_model_name = list(models)[list(
